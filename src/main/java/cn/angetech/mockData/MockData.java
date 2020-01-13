@@ -17,9 +17,9 @@ import java.util.*;
 // 参考http://spark.apache.org/docs/latest/sql-getting-started.html#programmatically-specifying-the-schema
 // 参考代码：JavaSparkSQLExample
 public class MockData {
-    public static void mock() {
+    public static void mock(SparkSession spark) {
         System.out.println("mock data");
-        SparkSession spark = SparkSession.builder().appName("java spark sql basic example").config("spark.some.config.option","some value").master("local").getOrCreate();
+//        SparkSession spark = SparkSession.builder().appName("java spark sql basic example").config("spark.some.config.option","some value").master("local").getOrCreate();
         List<Row> rows = new ArrayList<Row>();
         String date = DateUtils.getTodayDate();  // 2019-12-12
         String[] actions = new String[]{"search", "click", "order", "pay"};
@@ -84,7 +84,7 @@ public class MockData {
                 DataTypes.createStructField("pay_category_ids", DataTypes.StringType, true),
                 DataTypes.createStructField("pay_product_ids", DataTypes.StringType, true)
         ));
-        System.out.println(rows);
+//        System.out.println(rows);
         // Apply the schema to the RDD
         Dataset<Row> userVisitDataFrame = spark.createDataFrame(rows, schema);
 
@@ -92,7 +92,7 @@ public class MockData {
         userVisitDataFrame.createOrReplaceTempView("user_visit_action");
 
         // SQL can be run over a temporary view created using DataFrames
-        Dataset<Row> results = spark.sql("SELECT * FROM user_visit_action");
+        Dataset<Row> results = spark.sql("SELECT * FROM user_visit_action limit 3");
         System.out.println(results);
         results.show();
 
@@ -128,7 +128,9 @@ public class MockData {
     }
 
     public static void main(String[] args) {
-        mock();
+        SparkSession spark = SparkSession.builder().appName("java spark sql basic example").config("spark.some.config.option","some value").master("local").getOrCreate();
+
+        mock(spark);
     }
 
 }

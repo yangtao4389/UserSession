@@ -15,9 +15,18 @@
 #### session
 * 用户session分析
 * UserVisitAnalyze 用户访问分析  主程序，直接运行
+* CollectionAccumulator、CustomAccumulatorExample ：练习如何使用spark 累加器 
+* Transformation1-12 练习来源： https://www.cnblogs.com/Transkai/p/11346639.html
+
 
 #### domain
 * 放类似表的 实体类型
 
 #### dao
 * sql链接执行
+
+#### accumulatorTest
+测试accumulatorV2
+参考：https://blog.csdn.net/hlp4207/article/details/85287788
+实现累加效果：ONE:1    TWO:2    THREE:3    ONE:9
+UserDefinedAccumulator 

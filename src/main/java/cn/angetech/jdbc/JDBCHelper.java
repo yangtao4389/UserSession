@@ -125,7 +125,7 @@ public class JDBCHelper {
     /*
     * 批量执行sql语句
     * */
-    public int[] executeBatch(String sql, List<Object[]> params){
+    public int[] excuteBatch(String sql, List<Object[]> params){
         Connection connection = null;
         PreparedStatement statement = null;
         int[] res = null;

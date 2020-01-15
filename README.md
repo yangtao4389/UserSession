@@ -1,5 +1,9 @@
 # 用户session分析平台
 
+# 项目目的
+提取用户访问的session数据，对session进行统计，最后把数据写入数据库
+
+
 ## 编码思路
 ### 1.模拟数据
 * mockData-> MockData

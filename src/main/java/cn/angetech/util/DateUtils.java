@@ -18,6 +18,9 @@ public class DateUtils {
     public static String getTodayDate(){
         return DATE_FORMAT.format(new Date());
     }
+    public static String getLocalTime(){
+        return TIME_FORMAT.format(new Date());
+    }
 
     public static boolean before(String time1, String time2){
         try{
@@ -95,8 +98,12 @@ public class DateUtils {
         return null;
     }
 
+
+
+
     public static void main(String[] args) {
-        System.out.println(getDateHour("2020-01-10 15:03:17"));
+//        System.out.println(getDateHour("2020-01-10 15:03:17"));
+        System.out.println(getLocalTime());
 
     }
 

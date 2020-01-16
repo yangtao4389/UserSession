@@ -1,11 +1,7 @@
 package cn.angetech.dao.factory;
 
-import cn.angetech.dao.SessionDetailDao;
-import cn.angetech.dao.SessionRandomExtractDao;
-import cn.angetech.dao.TaskDao;
-import cn.angetech.dao.Top10CategoryDao;
+import cn.angetech.dao.*;
 import cn.angetech.dao.impl.*;
-import cn.angetech.dao.Top10CategorySessionDao;
 
 public class DaoFactory {
     /*
@@ -25,5 +21,7 @@ public class DaoFactory {
     public static Top10CategoryDao getTop10CategoryDao(){return new Top10CategoryDaoImpl(); }
 
     public static Top10CategorySessionDao getTop10CategorySessionDao(){return new Top10CategorySessionDaoImpl(); }
+
+    public static SessionAggrStatDao getSessionAggrStatDao(){return new SessionAggrStatDaoImpl(); }
 
 }

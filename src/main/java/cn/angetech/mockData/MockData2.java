@@ -39,7 +39,8 @@ public class MockData2 {
         userVisitDataFrame.createOrReplaceTempView("user_visit_action");
 
         // todo 使用方法
-        Dataset<Row> results = sparkSession.sql("SELECT * FROM user_visit_action limit 10");
+//        Dataset<Row> results = sparkSession.sql("SELECT * FROM user_visit_action limit 10");
+        Dataset<Row> results = sparkSession.sql("SELECT session_id,count(session_id) FROM user_visit_action GROUP BY session_id");
         results.show();
 
         List<Row> rowListUser = new MockUser().mock();

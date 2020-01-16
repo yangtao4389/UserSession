@@ -8,6 +8,7 @@ import org.apache.spark.sql.RowFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public class MockSession {
 
@@ -21,34 +22,43 @@ public class MockSession {
         final Random random = new Random();
         List<Row> rowList = new ArrayList<>();
 
-        // 模拟一个用户数据
-        for(int i=0;i<10;i++){
-            Long userid = 1L;
-            String sessionid = "sessionid";
-            Long pageid = 1L;
-            String searchKeyword = null;
-            Long clickCategoryId = null;
-            Long clickProductId = null;
-            String orderCategoryIds = null;
-            String orderProductIds = null;
-            String payCategoryIds = null;
-            String payProductIds = null;
-            String action = actions[random.nextInt(4)];
-            String actionTime = DateUtils.getLocalTime();
-            if("search".equals(action)){
-                searchKeyword = searchKeywords[random.nextInt(10)];
-            }else if("click".equals(action)){
-                clickCategoryId = Long.valueOf(i);
-                clickProductId = Long.valueOf(i);
-            }else if("order".equals(action)){
-                orderCategoryIds = "1,2,3";
-                orderProductIds = "1,2,3";
-            }else if("pay".equals(action)){
-                payCategoryIds = "3,4,5";
-                payProductIds = "3,4,5";
+        // 模拟10个用户数据（1-10），每个用户随机2条session  每个session 随机10个动作
+        for(int i=1;i<=10;i++){
+            Long userid = Long.valueOf(i);
+
+            for(int j=0;j<2;j++){
+                String sessionid = UUID.randomUUID().toString().replace("-","");
+                String baseActionTime = date + " " + StringUtils.fulfuill(String.valueOf(random.nextInt(23)));
+                for(int k=-1;k<random.nextInt(10);k++){
+                    Long pageid = Long.valueOf(random.nextInt(10));
+                    String searchKeyword = null;
+                    Long clickCategoryId = null;
+                    Long clickProductId = null;
+                    String orderCategoryIds = null;
+                    String orderProductIds = null;
+                    String payCategoryIds = null;
+                    String payProductIds = null;
+                    String action = actions[random.nextInt(4)];
+                    String actionTime = baseActionTime + ":" + StringUtils.fulfuill(String.valueOf(random.nextInt(59)))+ ":" + StringUtils.fulfuill(String.valueOf(random.nextInt(59)));
+                    if("search".equals(action)){
+                        searchKeyword = searchKeywords[random.nextInt(10)];
+                    }else if("click".equals(action)){
+                        clickCategoryId = Long.valueOf(i);
+                        clickProductId = Long.valueOf(i);
+                    }else if("order".equals(action)){
+                        orderCategoryIds = "1,2,3";
+                        orderProductIds = "1,2,3";
+                    }else if("pay".equals(action)){
+                        payCategoryIds = "3,4,5";
+                        payProductIds = "3,4,5";
+                    }
+                    Row row = RowFactory.create(date,userid,sessionid,pageid,action,actionTime,searchKeyword,clickCategoryId,clickProductId,orderCategoryIds,orderProductIds,payCategoryIds,payProductIds);
+                    rowList.add(row);
+                }
             }
-            Row row = RowFactory.create(date,userid,sessionid,pageid,action,actionTime,searchKeyword,clickCategoryId,clickProductId,orderCategoryIds,orderProductIds,payCategoryIds,payProductIds);
-            rowList.add(row);
+
+
+
         }
 
         return rowList;

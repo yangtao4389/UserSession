@@ -10,6 +10,7 @@ public class SessionAggrStatAccumulator extends AccumulatorV2<String,String>{
 
     private String zero(){
         return  Constants.SESSION_COUNT + "=0|"
+                + Constants.TIME_PERIOD_0s + "=0|"
                 + Constants.TIME_PERIOD_1s_3s + "=0|"
                 + Constants.TIME_PERIOD_4s_6s + "=0|"
                 + Constants.TIME_PERIOD_7s_9s + "=0|"

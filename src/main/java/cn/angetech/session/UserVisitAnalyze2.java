@@ -51,10 +51,10 @@ public class UserVisitAnalyze2 {
 //            System.out.println();
 //        }
 
-        //todo 5.记录sessionAggrStatAccumulator
+        //todo 5.记录sessionAggrStatAccumulator 自定义全局增长器
         SessionAggrStatAccumulator sessionAggrStatAccumulator = new SessionAggrStatAccumulator();
         ss.sparkContext().register(sessionAggrStatAccumulator,"AccumulatorV2-2:");
-        addSessionAggrStatAccumulator(aggregateBySessionIdJavaPairRDD,sessionAggrStatAccumulator);
+        addSessionAggrStatAccumulator(aggregateBySessionIdJavaPairRDD,sessionAggrStatAccumulator);  //todo 进行这一步主要是为了使sessionAggrStatAccumulator.value() 有值
 
         //todo 6.查看sessionAggrStatAccumulator 并写入到数据库
         String s = sessionAggrStatAccumulator.value(); // session_count=20|1s_3s=0|4s_6s=0|7s_9s=0|10s_30s=0|30s_60s=1|1m_3m=0|3m_10m=0|10m_30m=10|30m=7|1_3=9|4_6=9|7_9=2|10_30=0|30_60=0|60=0
@@ -62,7 +62,7 @@ public class UserVisitAnalyze2 {
         insertIntoMysqlsessionAggrStat(s,taskId);
 
 
-        //todo 6.top10的类目（最多点击>最多下单>最多付款）
+
 
     }
     private static JavaRDD<Row>  getActionRDD(SparkSession ss,JSONObject jsonObject){

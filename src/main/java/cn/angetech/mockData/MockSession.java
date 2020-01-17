@@ -2,6 +2,7 @@ package cn.angetech.mockData;
 
 import cn.angetech.util.DateUtils;
 import cn.angetech.util.StringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
 
@@ -43,8 +44,8 @@ public class MockSession {
                     if("search".equals(action)){
                         searchKeyword = searchKeywords[random.nextInt(10)];
                     }else if("click".equals(action)){
-                        clickCategoryId = Long.valueOf(i);
-                        clickProductId = Long.valueOf(i);
+                        clickCategoryId = RandomUtils.nextLong(1,3);
+                        clickProductId = RandomUtils.nextLong(1,3);
                     }else if("order".equals(action)){
                         orderCategoryIds = "1,2,3";
                         orderProductIds = "1,2,3";
